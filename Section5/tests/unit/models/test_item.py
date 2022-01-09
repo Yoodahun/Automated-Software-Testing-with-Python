@@ -6,8 +6,8 @@ class ItemTest(TestCase):
     def test_create_item(self):
         item = ItemModel('test', 19.99)
 
-        self.assertEqual(item.name, 'test', "The anme of the item after creation does not equal the constructor argument.")
-        self.assertEqual(item.price, 19.99, "The anme of the item after creation does not equal the constructor argument.")
+        self.assertEqual(item.name, 'test', "The name of the item after creation does not equal the constructor argument.")
+        self.assertEqual(item.price, 19.99, "The name of the item after creation does not equal the constructor argument.")
 
     def test_item_json(self):
         item = ItemModel('test', 19.99)
