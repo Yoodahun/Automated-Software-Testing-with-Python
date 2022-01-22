@@ -14,14 +14,20 @@ from db import db
 
 
 class BaseTest(TestCase):
-    def setUp(self):
-        # make sure database exits
+
+    @classmethod
+    def setUpClass(cls):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'
         with app.app_context():
             db.init_app(app)
             db.create_all()
+
+    def setUp(self):
+        # make sure database exits
+        with app.app_context():
+            db.create_all()
         # Get a test clinet
-        self.app = app.test_client()
+        self.app = app.test_client
         self.app_context = app.app_context()  # 앱에 관련된 모든 정보들을 가져옴.
 
     def tearDown(self):
