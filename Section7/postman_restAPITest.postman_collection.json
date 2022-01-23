@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "c10d6b10-60c1-40af-92ff-9554a90c6333",
+		"name": "Udemy - Automated Software Testing with Python Copy",
+		"description": "using Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body contains access_token\"] = responseBody.has(\"access_token\");",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true,
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test1\",\n    \"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local_url}}/auth",
+					"host": [
+						"{{local_url}}"
+					],
+					"path": [
+						"auth"
+					]
+				},
+				"description": "registering User"
+			},
+			"response": []
+		},
+		{
+			"name": "/store/test_store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"console.log(jsonData);",
+							"",
+							"tests[\"Store name is returnning\"] = jsonData.name === 'test_store';",
+							"tests[\"Store items are an empty lists\"] = jsonData.items.length === 0;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"",
+							"",
+							"postman.setEnvironmentVariable('store_id', jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true,
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{local_url}}/store/test_store",
+					"host": [
+						"{{local_url}}"
+					],
+					"path": [
+						"store",
+						"test_store"
+					]
+				},
+				"description": "create store\n"
+			},
+			"response": []
+		},
+		{
+			"name": "/item/test_item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"console.log(jsonData);",
+							"",
+							"tests[\"Item name is returned\"] = jsonData.name === \"test_item\";",
+							"tests[\"Item price is returnd\"] = jsonData.price === 19.99;",
+							"tests[\"Successful POST request\"] = responseCode.code === 201;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true,
+					"host": true,
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"price\":19.99,\n    \"store_id\":{{store_id}}\n}"
+				},
+				"url": {
+					"raw": "{{local_url}}/item/test_item",
+					"host": [
+						"{{local_url}}"
+					],
+					"path": [
+						"item",
+						"test_item"
+					]
+				},
+				"description": "create store\n"
+			},
+			"response": []
+		},
+		{
+			"name": "/stores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"console.log(jsonData);",
+							"",
+							"tests[\"Stores is returnning\"] = jsonData.stores.length > 0;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true,
+					"host": true,
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{local_url}}/stores",
+					"host": [
+						"{{local_url}}"
+					],
+					"path": [
+						"stores"
+					]
+				},
+				"description": "create store\n"
+			},
+			"response": []
+		},
+		{
+			"name": "/item/test_item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"console.log(jsonData);",
+							"",
+							"",
+							"tests[\"Check status code 200\"] = responseCode.code === 200;",
+							"tests[\"Check item deleted\"] = jsonData.message === 'Item deleted'",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true,
+					"host": true,
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{local_url}}/item/test_item",
+					"host": [
+						"{{local_url}}"
+					],
+					"path": [
+						"item",
+						"test_item"
+					]
+				},
+				"description": "create store\n"
+			},
+			"response": []
+		},
+		{
+			"name": "/store/test_store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"console.log(jsonData);",
+							"",
+							"tests[\"Check status code 200\"] = responseCode.code === 200;",
+							"tests[\"Check store deleted\"] = jsonData.message === 'store deleted'",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true,
+					"host": true,
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{local_url}}/store/test_store",
+					"host": [
+						"{{local_url}}"
+					],
+					"path": [
+						"store",
+						"test_store"
+					]
+				},
+				"description": "create store\n"
+			},
+			"response": []
+		}
+	]
+}
