@@ -19,6 +19,8 @@ class BaseTest(TestCase):
     def setUpClass(cls):
         # 각 테스트클래스가 실행될때마다 딱 한 번씩만 실행
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'
+        app.config['DEBUG'] = False
+        app.config['PROPAGATE_EXCEPTIONS'] = True
         with app.app_context():
             db.init_app(app)
             # db.create_all()
