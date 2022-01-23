@@ -17,13 +17,15 @@ class BaseTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        # 각 테스트클래스가 실행될때마다 딱 한 번씩만 실행
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'
         with app.app_context():
             db.init_app(app)
-            db.create_all()
+            # db.create_all()
 
     def setUp(self):
         # make sure database exits
+        # 각 테스트 클래스의 메소드가 실행될때마다 한 번씩만 실행
         with app.app_context():
             db.create_all()
         # Get a test clinet
