@@ -13,4 +13,9 @@ class BasePage:
     def title(self):
         return self.driver.find_element(*BasePageLocators.TITLE)
 
+    @property
+    def navigation(self):
+        return self.driver.find_elements(*BasePageLocators.NAV_LINKS)
+
+
 
