@@ -1,17 +1,14 @@
 from tests.acceptance.locators.homepage import HomePageLocators
+from tests.acceptance.page_model.base_page import BasePage
 
 
-class HomePage:
+class HomePage(BasePage):
     def __init__(self, driver):
         self.driver = driver
 
     @property
     def url(self):
-        return 'http://127.0.0.1:5000/'
-
-    @property
-    def title(self):
-        return  self.driver.find_element(*HomePageLocators.TITLE)
+        return super(HomePage, self).url() +'/'
 
     @property
     def blog_link(self):
