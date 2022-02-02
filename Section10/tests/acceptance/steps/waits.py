@@ -1,4 +1,5 @@
 from behave import *
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -10,6 +11,13 @@ use_step_matcher('re')
 @given('I wait for the posts to load')
 def step_impl(context):
     WebDriverWait(context.driver, 5).until(
-        expected_conditions.invisibility_of_element_located(BlogPageLocators.POSTS_SECTION)
+        expected_conditions.visibility_of_element_located(BlogPageLocators.POSTS_SECTION)
     )
+
+    if context.driver.find_element(*BlogPageLocators.POSTS_SECTION).is_displayed():
+        print("pass")
+    else:
+        print("fail")
+
+
 
